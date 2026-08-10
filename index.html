@@ -257,11 +257,9 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: #8a6d1f;
+    color: #000000;
     margin-bottom: 8px;
   }
 
@@ -536,7 +534,13 @@
           </div>
         </div>
         <div class="instructions">
-          <p class="instructions-title">&#8505; Tener en cuenta</p>
+          <p class="instructions-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            A tener en cuenta
+          </p>
           <ul class="instructions-list">
             ${PUNTOS_INSTRUCCIONES.map((punto) => `<li>${punto}</li>`).join("")}
           </ul>
