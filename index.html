@@ -512,6 +512,12 @@
     resultadoDiv.innerHTML = `<div class="result-box loading">Buscando tu aula...</div>`;
   }
 
+  // El primer dígito del número de aula indica el piso (ej: 863 -> 8vo piso).
+  // Se usa notación ordinal correcta (8°) en vez de abreviaturas como "vo"/"mo".
+  function formatearPiso(aula) {
+    return `${aula.charAt(0)}° piso`;
+  }
+
   function mostrarResultado(asignacion) {
     resultadoDiv.innerHTML = `
       <div class="result-box success">
@@ -522,7 +528,7 @@
         <div class="result-grid">
           <div class="result-item">
             <div class="label">Piso</div>
-            <div class="value">${asignacion.piso}</div>
+            <div class="value">${formatearPiso(asignacion.aula)}</div>
           </div>
           <div class="result-item">
             <div class="label">Aula</div>
