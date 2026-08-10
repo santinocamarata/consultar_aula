@@ -517,7 +517,19 @@
     return `${aula.charAt(0)}° piso`;
   }
 
+  // Escapa caracteres especiales de HTML antes de insertar en innerHTML.
+  // Necesario porque piso/aula vienen de una fuente externa (el Google Sheet):
+  // sin esto, un valor malicioso cargado ahí ejecutaría HTML/JS en el navegador
+  // de cada alumno que consulte (XSS almacenado).
+  function escapeHtml(texto) {
+    return String(texto).replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+    }[c]));
+  }
+
   function mostrarResultado(asignacion) {
+    const piso = escapeHtml(formatearPiso(asignacion.aula));
+    const aula = escapeHtml(asignacion.aula);
     resultadoDiv.innerHTML = `
       <div class="result-box success">
         <div class="result-header">
@@ -527,11 +539,11 @@
         <div class="result-grid">
           <div class="result-item">
             <div class="label">Piso</div>
-            <div class="value">${formatearPiso(asignacion.aula)}</div>
+            <div class="value">${piso}</div>
           </div>
           <div class="result-item">
             <div class="label">Aula</div>
-            <div class="value">${asignacion.aula}</div>
+            <div class="value">${aula}</div>
           </div>
         </div>
         <div class="instructions">
