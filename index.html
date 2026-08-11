@@ -216,6 +216,41 @@
     font-weight: 600;
   }
 
+  .result-name {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .result-name .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-muted);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .result-name .value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .result-edificio {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .result-edificio strong {
+    color: var(--color-primary-dark);
+  }
+
   .result-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -448,11 +483,15 @@
     const filas = parsearCsv(textoCsv);
 
     const mapa = new Map();
-    // La primera fila son los encabezados (Legajo, Piso, Aula) -> se salta.
+    // La primera fila son los encabezados (Legajo, Piso, Aula, Nombre) -> se salta.
     for (let i = 1; i < filas.length; i++) {
-      const [legajo, piso, aula] = filas[i];
+      const [legajo, piso, aula, nombre] = filas[i];
       if (!legajo) continue;
-      mapa.set(legajo.trim(), { piso: (piso || "").trim(), aula: (aula || "").trim() });
+      mapa.set(legajo.trim(), {
+        piso: (piso || "").trim(),
+        aula: (aula || "").trim(),
+        nombre: (nombre || "").trim(),
+      });
     }
     return mapa;
   }
@@ -522,12 +561,27 @@
   function mostrarResultado(asignacion) {
     const piso = escapeHtml(formatearPiso(asignacion.aula));
     const aula = escapeHtml(asignacion.aula);
+    const nombre = escapeHtml(asignacion.nombre || "");
+
+    // El nombre solo se muestra si el Sheet trae ese dato para el legajo
+    // (algunos listados viejos no lo incluyen todavía).
+    const bloqueNombre = nombre
+      ? `
+        <div class="result-name">
+          <div class="label">¿Sos vos?</div>
+          <div class="value">${nombre}</div>
+        </div>
+      `
+      : "";
+
     resultadoDiv.innerHTML = `
       <div class="result-box success">
         <div class="result-header">
           <span class="check">&#10003;</span>
           Aula asignada
         </div>
+        ${bloqueNombre}
+        <div class="result-edificio">Edificio: <strong>UADE Labs</strong></div>
         <div class="result-grid">
           <div class="result-item">
             <div class="label">Piso</div>
