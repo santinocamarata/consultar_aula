@@ -257,10 +257,8 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
     color: #000000;
     margin-bottom: 8px;
   }
@@ -270,25 +268,18 @@
     padding: 0;
     list-style: none;
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
     color: var(--color-text-muted);
   }
 
   .instructions-list li {
-    position: relative;
-    padding-left: 16px;
+    display: flex;
+    gap: 6px;
     margin-bottom: 4px;
   }
 
-  .instructions-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 8px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-accent);
+  .instructions-list li .bullet {
+    flex-shrink: 0;
   }
 
   .instructions-list li:last-child {
@@ -370,9 +361,10 @@
   const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1HFjfXOpvQafRl2Jnq-bihAXzbK-RnxkGphu52jE0C7M/export?format=csv&gid=1846518741";
 
   const PUNTOS_INSTRUCCIONES = [
-    "Todo se rinde en el edificio de UADE Labs.",
-    "Al llegar, podrás utilizar tanto las escaleras como los ascensores para dirigirse al aula.",
-    "Debes tener descargada la aplicación de UADE en tu teléfono para obtener el código QR.",
+    "El examen se rinde en el edificio UADE Labs.",
+    "Al llegar, podrás utilizar las escaleras o los ascensores para dirigirte al aula.",
+    "Recordá tener instalada la aplicación de UADE en tu celular, ya que necesitarás el código QR para ingresar al edificio.",
+    "Te recomendamos llegar con anticipación para realizar el ingreso y dirigirte al aula con tiempo.",
   ];
 
   const MIN_DIGITOS = 1;
@@ -547,15 +539,9 @@
           </div>
         </div>
         <div class="instructions">
-          <p class="instructions-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            A tener en cuenta
-          </p>
+          <p class="instructions-title">📋 Información importante a tener en cuenta</p>
           <ul class="instructions-list">
-            ${PUNTOS_INSTRUCCIONES.map((punto) => `<li>${punto}</li>`).join("")}
+            ${PUNTOS_INSTRUCCIONES.map((punto) => `<li><span class="bullet">🟠</span><span>${punto}</span></li>`).join("")}
           </ul>
         </div>
       </div>
