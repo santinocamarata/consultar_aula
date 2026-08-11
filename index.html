@@ -276,9 +276,13 @@
   }
 
   .result-item .value {
-    font-size: 26px;
+    /* Tipografía fluida: escala sola con el ancho de pantalla en vez de
+       saltar bruscamente en un punto de quiebre fijo, así nunca corta
+       "5° piso" a dos líneas en celulares angostos. */
+    font-size: clamp(18px, 6vw, 26px);
     font-weight: 800;
     color: var(--color-primary-dark);
+    white-space: nowrap;
   }
 
   .instructions {
@@ -334,8 +338,14 @@
   }
 
   @media (max-width: 400px) {
-    .card { padding: 24px 18px; }
-    .result-item .value { font-size: 22px; }
+    .card { padding: 24px 16px; }
+    .result-grid { gap: 8px; }
+    .result-item { padding: 12px 6px; }
+  }
+
+  @media (max-width: 340px) {
+    .brand h1 { font-size: 19px; }
+    .welcome-msg { font-size: 14px; }
   }
 </style>
 
