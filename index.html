@@ -3,18 +3,26 @@
 <title>Encontrá tu aula | Examen de Ingreso</title>
 <style>
   :root {
-    --color-primary: #0033a0;
-    --color-primary-dark: #002376;
-    --color-accent: #ffb81c;
-    --color-bg: #f2f4f8;
-    --color-card: #ffffff;
-    --color-text: #1c2333;
-    --color-text-muted: #5b6472;
-    --color-error: #c0392b;
-    --color-error-bg: #fdecea;
-    --color-success-bg: #eef6ff;
-    --radius: 14px;
-    --shadow: 0 10px 30px rgba(0, 51, 160, 0.12);
+    /* Paleta institucional real de UADE (navy + coral), verificada contra
+       uade.edu.ar — no es un azul genérico de SaaS. */
+    --navy: #0a2f63;
+    --navy-deep: #061b3d;
+    --navy-line: #1c3e6e;
+    --coral: #ee6e73;
+    --coral-deep: #c94a50;
+    --paper: #f4f6fa;
+    --mist: #e3e8f1;
+    --ink: #10192b;
+    --ink-muted: #5c6b84;
+    --on-navy: #eef2f9;
+    --on-navy-muted: #93a4c4;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-card: 0 16px 40px rgba(10, 47, 99, 0.12);
+    --shadow-soft: 0 2px 10px rgba(10, 47, 99, 0.06);
+    --font-body: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, "Courier New", monospace;
   }
 
   * {
@@ -24,9 +32,9 @@
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: linear-gradient(160deg, var(--color-bg) 0%, #e6ebf5 100%);
-    color: var(--color-text);
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,112 +43,115 @@
 
   .app {
     width: 100%;
-    max-width: 480px;
+    max-width: 460px;
   }
 
+  /* ---------- Encabezado: eyebrow + regla coral, sin ícono-badge ---------- */
   .brand {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
-  .brand .logo {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    background: var(--color-primary);
-    color: #fff;
-    font-size: 26px;
+  .brand .rule {
+    width: 34px;
+    height: 3px;
+    background: var(--coral);
+    border-radius: 2px;
+    margin: 0 auto 12px;
+  }
+
+  .brand .eyebrow {
+    margin: 0 0 6px;
+    font-size: 11px;
     font-weight: 700;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
   }
 
   .brand h1 {
     margin: 0;
-    font-size: 22px;
-    letter-spacing: 0.5px;
-    color: var(--color-primary-dark);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: var(--navy);
   }
 
-  .brand p.subtitle {
-    margin: 4px 0 0;
-    font-size: 13px;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
+  /* ---------- Tarjeta de entrada ---------- */
   .card {
-    background: var(--color-card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 32px 28px;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 28px 24px;
   }
 
   .welcome-msg {
-    font-size: 15px;
-    line-height: 1.5;
-    color: var(--color-text);
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-muted);
     text-align: center;
-    margin: 0 0 24px;
+    margin: 0 0 22px;
   }
 
   .field-group {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 
   label {
     display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
     margin-bottom: 8px;
   }
 
   #legajoInput {
     width: 100%;
     padding: 14px 16px;
-    font-size: 18px;
-    letter-spacing: 1px;
-    border: 2px solid #dde3ee;
-    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 19px;
+    letter-spacing: 2px;
+    background: var(--paper);
+    border: 1.5px solid var(--mist);
+    border-radius: var(--radius-md);
     outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     text-align: center;
-    font-weight: 600;
-    color: var(--color-primary-dark);
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  #legajoInput::placeholder {
+    color: #aab4c8;
+    font-weight: 500;
   }
 
   #legajoInput:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px rgba(0, 51, 160, 0.12);
+    background: #fff;
+    border-color: var(--coral);
+    box-shadow: 0 0 0 4px rgba(238, 110, 115, 0.18);
   }
 
   #legajoInput.invalid {
-    border-color: var(--color-error);
-  }
-
-  .hint {
-    margin-top: 6px;
-    font-size: 12px;
-    color: var(--color-text-muted);
+    border-color: var(--coral-deep);
   }
 
   button#consultarBtn {
     width: 100%;
     padding: 14px 16px;
-    font-size: 16px;
+    margin-top: 4px;
+    font-family: inherit;
+    font-size: 15px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.2px;
     color: #fff;
-    background: var(--color-primary);
+    background: var(--navy);
     border: none;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background 0.15s ease, transform 0.05s ease;
+    transition: background-color 0.15s ease, transform 0.1s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -148,216 +159,249 @@
   }
 
   button#consultarBtn:hover {
-    background: var(--color-primary-dark);
+    background: var(--navy-deep);
   }
 
   button#consultarBtn:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
+  }
+
+  button#consultarBtn:focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 2px;
   }
 
   button#consultarBtn:disabled {
-    opacity: 0.65;
+    opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
   }
 
+  #resultado:not(:empty) {
+    margin-top: 20px;
+  }
+
+  /* ---------- Estado: buscando ---------- */
   .result-box.loading {
-    background: var(--color-bg);
-    border: 1px solid #dde3ee;
-    color: var(--color-text-muted);
-    font-size: 14px;
+    background: var(--paper);
+    border: 1px dashed var(--mist);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    color: var(--ink-muted);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-align: center;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+
+  /* ---------- Estado: error / no encontrado ---------- */
+  .result-box.error {
+    background: #fdf1f1;
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    color: var(--coral-deep);
+    font-size: 13.5px;
+    line-height: 1.5;
     text-align: center;
     font-weight: 600;
   }
 
-  #resultado {
-    margin-top: 22px;
-  }
-
-  .result-box {
-    border-radius: 12px;
+  /* ---------- Estado: éxito — el "tablero de acceso" ---------- */
+  .board {
+    background: var(--navy-deep);
+    border-radius: var(--radius-lg);
     padding: 20px;
-    animation: fadeIn 0.25s ease;
+    box-shadow: var(--shadow-card);
+    animation: riseIn 0.35s ease-out both;
   }
 
-  .result-box.success {
-    background: var(--color-success-bg);
-    border: 1px solid #bcd6f7;
-  }
-
-  .result-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    color: #1a7a4c;
-  }
-
-  .result-header .check {
+  .board-status {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #1a7a4c;
-    color: #fff;
-    flex-shrink: 0;
-  }
-
-  .result-box.error {
-    background: var(--color-error-bg);
-    border: 1px solid #f2b8b0;
-    color: var(--color-error);
-    font-size: 14px;
-    text-align: center;
-    font-weight: 600;
-  }
-
-  .result-name {
-    background: #fff;
-    border-radius: 8px;
-    padding: 6px 12px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-
-  .result-name .label {
-    font-size: 10px;
+    gap: 5px;
+    background: var(--coral);
+    color: var(--navy-deep);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  .board-name .label,
+  .board-edificio .label {
+    font-size: 10px;
+    font-weight: 700;
     letter-spacing: 1px;
-    color: var(--color-text-muted);
+    text-transform: uppercase;
+    color: var(--on-navy-muted);
+    margin-bottom: 3px;
+  }
+
+  .board-name {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--navy-line);
+  }
+
+  .board-name .value {
+    font-size: 14.5px;
     font-weight: 700;
-    margin-bottom: 2px;
+    color: var(--on-navy);
   }
 
-  .result-name .value {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-primary-dark);
-  }
-
-  .result-edificio {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-text-muted);
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .result-edificio strong {
-    color: var(--color-primary-dark);
-  }
-
-  .result-grid {
+  .board-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 16px;
+    perspective: 600px;
   }
 
-  .result-item {
-    background: #fff;
-    border-radius: 10px;
-    padding: 14px 10px;
+  .board-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--navy-line);
+    border-radius: var(--radius-sm);
+    padding: 12px 8px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
-  .result-item .label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--color-text-muted);
+  .board-item .label {
+    font-size: 10px;
     font-weight: 700;
-    margin-bottom: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--on-navy-muted);
+    margin-bottom: 4px;
   }
 
-  .result-item .value {
-    /* Tipografía fluida: escala sola con el ancho de pantalla en vez de
-       saltar bruscamente en un punto de quiebre fijo, así nunca corta
-       "5° piso" a dos líneas en celulares angostos. */
-    font-size: clamp(18px, 6vw, 26px);
-    font-weight: 800;
-    color: var(--color-primary-dark);
+  .board-item .value {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: clamp(20px, 6.5vw, 30px);
+    font-weight: 700;
+    color: var(--on-navy);
     white-space: nowrap;
+    letter-spacing: 0.5px;
+    animation: flipIn 0.45s cubic-bezier(0.2, 0, 0, 1) both;
+    transform-origin: 50% 100%;
   }
 
-  .instructions {
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px dashed #c7b591;
-    border-radius: 8px;
-    padding: 12px 14px;
+  .board-item:nth-child(2) .value {
+    animation-delay: 90ms;
   }
 
-  .instructions-title {
+  .board-edificio {
+    text-align: center;
+  }
+
+  .board-edificio .value {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--on-navy);
+  }
+
+  /* ---------- Aviso complementario, debajo del tablero ---------- */
+  .notice {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .notice-title {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
     font-size: 13px;
     font-weight: 700;
-    color: #000000;
-    margin-bottom: 8px;
+    color: var(--navy);
+    margin: 0 0 10px;
   }
 
-  .instructions-list {
+  .notice-title svg {
+    flex-shrink: 0;
+    color: var(--coral);
+  }
+
+  .notice-list {
     margin: 0;
     padding: 0;
     list-style: none;
     font-size: 13px;
-    line-height: 1.6;
-    color: var(--color-text-muted);
+    line-height: 1.55;
+    color: var(--ink-muted);
   }
 
-  .instructions-list li {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 4px;
+  .notice-list li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 6px;
   }
 
-  .instructions-list li .bullet {
-    flex-shrink: 0;
-  }
-
-  .instructions-list li:last-child {
+  .notice-list li:last-child {
     margin-bottom: 0;
+  }
+
+  .notice-list li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--coral-deep);
+    font-weight: 700;
   }
 
   footer {
     text-align: center;
-    margin-top: 20px;
-    font-size: 12px;
-    color: var(--color-text-muted);
+    margin-top: 22px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--ink-muted);
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-6px); }
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes flipIn {
+    from { opacity: 0; transform: rotateX(-90deg); }
+    to { opacity: 1; transform: rotateX(0deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .board, .board-item .value, .result-box.loading {
+      animation: none;
+    }
+  }
+
   @media (max-width: 400px) {
-    .card { padding: 24px 16px; }
-    .result-grid { gap: 8px; }
-    .result-item { padding: 12px 6px; }
+    .card { padding: 22px 18px; }
+    .board { padding: 16px; }
+    .board-grid { gap: 8px; }
+    .board-item { padding: 10px 6px; }
   }
 
   @media (max-width: 340px) {
-    .brand h1 { font-size: 19px; }
-    .welcome-msg { font-size: 14px; }
+    .brand h1 { font-size: 22px; }
+    .welcome-msg { font-size: 13.5px; }
   }
 </style>
 
 <div class="app">
   <div class="brand">
-    <div class="logo">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C7.58 2 4 5.58 4 10c0 5.25 7 11.5 7.3 11.76a1 1 0 0 0 1.4 0C13 21.5 20 15.25 20 10c0-4.42-3.58-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/>
-      </svg>
-    </div>
+    <div class="rule"></div>
+    <p class="eyebrow">UADE · Examen de Ingreso</p>
     <h1>Encontrá tu aula</h1>
-    <p class="subtitle">Examen de Ingreso</p>
   </div>
 
   <div class="card">
@@ -577,7 +621,7 @@
     // (algunos listados viejos no lo incluyen todavía).
     const bloqueNombre = nombre
       ? `
-        <div class="result-name">
+        <div class="board-name">
           <div class="label">Nombre del alumno</div>
           <div class="value">${nombre}</div>
         </div>
@@ -585,29 +629,35 @@
       : "";
 
     resultadoDiv.innerHTML = `
-      <div class="result-box success">
-        <div class="result-header">
-          <span class="check">&#10003;</span>
+      <div class="board">
+        <span class="board-status">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Aula asignada
-        </div>
+        </span>
         ${bloqueNombre}
-        <div class="result-edificio">Edificio: <strong>UADE Labs</strong></div>
-        <div class="result-grid">
-          <div class="result-item">
+        <div class="board-grid">
+          <div class="board-item">
             <div class="label">Piso</div>
             <div class="value">${piso}</div>
           </div>
-          <div class="result-item">
+          <div class="board-item">
             <div class="label">Aula</div>
             <div class="value">${aula}</div>
           </div>
         </div>
-        <div class="instructions">
-          <p class="instructions-title">📋 Información importante a tener en cuenta</p>
-          <ul class="instructions-list">
-            ${PUNTOS_INSTRUCCIONES.map((punto) => `<li><span class="bullet">🟠</span><span>${punto}</span></li>`).join("")}
-          </ul>
+        <div class="board-edificio">
+          <div class="label">Edificio</div>
+          <div class="value">UADE Labs</div>
         </div>
+      </div>
+      <div class="notice">
+        <p class="notice-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5.5M12 7.8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          Información importante a tener en cuenta
+        </p>
+        <ul class="notice-list">
+          ${PUNTOS_INSTRUCCIONES.map((punto) => `<li>${punto}</li>`).join("")}
+        </ul>
       </div>
     `;
   }
