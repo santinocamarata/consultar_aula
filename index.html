@@ -395,13 +395,13 @@
 
   .explosion-fireball {
     position: absolute;
-    width: 42vmax;
-    height: 42vmax;
+    width: 90vmax;
+    height: 90vmax;
     border-radius: 50%;
     background: radial-gradient(circle,
-      #fff 0%, #fff2b8 12%, #ffcf4d 26%, #ff8c1a 42%,
-      #d94f1a 58%, #4a2410 75%, transparent 100%);
-    animation: explosionBurst 1.1s cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
+      #fff 0%, #fff2b8 10%, #ffcf4d 22%, #ff8c1a 36%,
+      #d94f1a 52%, #4a2410 68%, transparent 88%);
+    animation: explosionBurst 1.3s cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
   }
 
   .explosion-ring {
@@ -409,20 +409,29 @@
     width: 10vmax;
     height: 10vmax;
     border-radius: 50%;
-    border: 4px solid rgba(255, 200, 100, 0.65);
-    animation: explosionRing 1.4s ease-out forwards;
+    border: 6px solid rgba(255, 200, 100, 0.7);
+    animation: explosionRing 1.6s ease-out forwards;
+  }
+
+  .explosion-ring2 {
+    position: absolute;
+    width: 10vmax;
+    height: 10vmax;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 120, 40, 0.55);
+    animation: explosionRing2 2s ease-out forwards;
   }
 
   .explosion-ember {
     position: absolute;
     bottom: 46%;
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #ffb84d;
-    box-shadow: 0 0 8px 2px rgba(255, 140, 40, 0.8);
+    box-shadow: 0 0 10px 3px rgba(255, 140, 40, 0.9);
     opacity: 0;
-    animation: explosionEmber 2.6s ease-out forwards;
+    animation: explosionEmber 3s ease-out forwards;
   }
 
   @keyframes explosionFlash {
@@ -432,20 +441,25 @@
 
   @keyframes explosionBurst {
     0% { transform: scale(0); opacity: 0; }
-    15% { transform: scale(0.5); opacity: 1; }
-    60% { transform: scale(1.15); opacity: 1; }
-    100% { transform: scale(1.3); opacity: 0; }
+    12% { transform: scale(0.55); opacity: 1; }
+    55% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1.25); opacity: 0; }
   }
 
   @keyframes explosionRing {
-    0% { transform: scale(0.3); opacity: 0.9; border-width: 6px; }
-    100% { transform: scale(9); opacity: 0; border-width: 1px; }
+    0% { transform: scale(0.3); opacity: 0.9; border-width: 8px; }
+    100% { transform: scale(22); opacity: 0; border-width: 1px; }
+  }
+
+  @keyframes explosionRing2 {
+    0% { transform: scale(0.2); opacity: 0.8; border-width: 6px; }
+    100% { transform: scale(30); opacity: 0; border-width: 1px; }
   }
 
   @keyframes explosionEmber {
     0% { transform: translate(0, 0) scale(1); opacity: 0; }
     10% { opacity: 1; }
-    100% { transform: translate(var(--ember-x, 40px), -220px) scale(0.3); opacity: 0; }
+    100% { transform: translate(var(--ember-x, 40px), -420px) scale(0.3); opacity: 0; }
   }
 
   @keyframes explosionFadeOut {
@@ -455,32 +469,29 @@
 
   @keyframes screenShake {
     0%, 100% { transform: translate(0, 0); }
-    10% { transform: translate(-6px, 3px); }
-    20% { transform: translate(5px, -4px); }
-    30% { transform: translate(-4px, 4px); }
-    40% { transform: translate(6px, 2px); }
-    50% { transform: translate(-3px, -3px); }
-    60% { transform: translate(4px, 3px); }
-    70% { transform: translate(-2px, -2px); }
-    80% { transform: translate(3px, 1px); }
-    90% { transform: translate(-1px, 2px); }
+    10% { transform: translate(-14px, 8px); }
+    20% { transform: translate(12px, -10px); }
+    30% { transform: translate(-11px, 10px); }
+    40% { transform: translate(13px, 6px); }
+    50% { transform: translate(-9px, -8px); }
+    60% { transform: translate(10px, 7px); }
+    70% { transform: translate(-6px, -6px); }
+    80% { transform: translate(7px, 3px); }
+    90% { transform: translate(-3px, 4px); }
   }
 
   body.shaking {
-    animation: screenShake 0.6s ease-in-out;
+    animation: screenShake 1s ease-in-out;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .board, .board-item .value, .result-box.loading {
       animation: none;
     }
-
-    .explosion-overlay, .explosion-flash, .explosion-fireball,
-    .explosion-ring, .explosion-ember, body.shaking {
-      animation: none !important;
-      display: none;
-    }
   }
+  /* El easter egg de explosión NO respeta prefers-reduced-motion a propósito:
+     es secreto, opt-in (solo se activa tipeando un legajo puntual) y el punto
+     es justamente que sea una sorpresa grande. */
 
   @media (max-width: 400px) {
     .card { padding: 22px 18px; }
@@ -569,9 +580,9 @@
     const overlay = document.createElement("div");
     overlay.className = "explosion-overlay";
 
-    const embers = Array.from({ length: 14 }, (_, i) => {
-      const angulo = (i / 14) * Math.PI * 2;
-      const distancia = 120 + Math.random() * 140;
+    const embers = Array.from({ length: 26 }, (_, i) => {
+      const angulo = (i / 26) * Math.PI * 2;
+      const distancia = 200 + Math.random() * 320;
       const x = Math.round(Math.cos(angulo) * distancia);
       const offsetInicial = Math.round(Math.cos(angulo) * 20);
       const demora = (Math.random() * 0.3).toFixed(2);
@@ -581,6 +592,7 @@
     overlay.innerHTML = `
       <div class="explosion-flash"></div>
       <div class="explosion-ring"></div>
+      <div class="explosion-ring2"></div>
       <div class="explosion-fireball"></div>
       ${embers}
     `;
@@ -588,7 +600,7 @@
     document.body.appendChild(overlay);
     document.body.classList.add("shaking");
 
-    setTimeout(() => document.body.classList.remove("shaking"), 650);
+    setTimeout(() => document.body.classList.remove("shaking"), 1050);
     setTimeout(() => overlay.remove(), 5000);
   }
 
