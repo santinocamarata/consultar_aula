@@ -293,8 +293,21 @@
     animation-delay: 90ms;
   }
 
+  .board-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
   .board-edificio {
     text-align: center;
+  }
+
+  .board-edificio .horario {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--on-navy-muted);
   }
 
   .board-edificio .value {
@@ -689,12 +702,14 @@
     const mapa = new Map();
     // La primera fila son los encabezados (Legajo, Piso, Aula, Nombre) -> se salta.
     for (let i = 1; i < filas.length; i++) {
-      const [legajo, piso, aula, nombre] = filas[i];
+      // Columnas: A Legajo | B Piso | C Aula | D Nombre | E Turno
+      const [legajo, piso, aula, nombre, turno] = filas[i];
       if (!legajo) continue;
       mapa.set(legajo.trim(), {
         piso: (piso || "").trim(),
         aula: (aula || "").trim(),
         nombre: (nombre || "").trim(),
+        turno: (turno || "").trim(),
       });
     }
     return mapa;
@@ -762,10 +777,35 @@
     }[c]));
   }
 
+  // Turnos y horarios. Para sumar o cambiar uno, editar acá.
+  // El valor viene de la columna E del Sheet (MAÑANA / TARDE, con o sin tilde).
+  const TURNOS = {
+    MANANA: { nombre: "Mañana", horario: "8:00 a 11:00 h" },
+    TARDE: { nombre: "Tarde", horario: "11:00 a 14:00 h" },
+  };
+
+  function infoTurno(texto) {
+    if (!texto) return null;
+    const clave = texto.normalize("NFD").replace(/[̀-ͯ]/g, "").trim().toUpperCase();
+    return TURNOS[clave] || { nombre: texto, horario: "" }; // valor raro: se muestra tal cual
+  }
+
   function mostrarResultado(asignacion) {
     const piso = escapeHtml(formatearPiso(asignacion.aula));
     const aula = escapeHtml(asignacion.aula);
     const nombre = escapeHtml(asignacion.nombre || "");
+    const turno = infoTurno(asignacion.turno);
+
+    // Si el legajo no tiene turno cargado, el bloque no aparece.
+    const bloqueTurno = turno
+      ? `
+        <div class="board-edificio">
+          <div class="label">Turno</div>
+          <div class="value">${escapeHtml(turno.nombre)}</div>
+          ${turno.horario ? `<div class="horario">${escapeHtml(turno.horario)}</div>` : ""}
+        </div>
+      `
+      : "";
 
     // El nombre solo se muestra si el Sheet trae ese dato para el legajo
     // (algunos listados viejos no lo incluyen todavía).
@@ -795,9 +835,12 @@
             <div class="value">${aula}</div>
           </div>
         </div>
-        <div class="board-edificio">
-          <div class="label">Edificio</div>
-          <div class="value">UADE Labs</div>
+        <div class="board-meta">
+          <div class="board-edificio">
+            <div class="label">Edificio</div>
+            <div class="value">UADE Labs</div>
+          </div>
+          ${bloqueTurno}
         </div>
       </div>
       <div class="notice">
