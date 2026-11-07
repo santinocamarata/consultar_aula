@@ -293,21 +293,25 @@
     animation-delay: 90ms;
   }
 
-  .board-meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+  .board-turno {
+    margin-bottom: 16px;
+  }
+
+  .board-turno .value {
+    animation-delay: 180ms;
+  }
+
+  .board-item .horario {
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: clamp(13px, 4vw, 16px);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--on-navy-muted);
   }
 
   .board-edificio {
     text-align: center;
-  }
-
-  .board-edificio .horario {
-    margin-top: 2px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--on-navy-muted);
   }
 
   .board-edificio .value {
@@ -799,7 +803,7 @@
     // Si el legajo no tiene turno cargado, el bloque no aparece.
     const bloqueTurno = turno
       ? `
-        <div class="board-edificio">
+        <div class="board-item board-turno">
           <div class="label">Turno</div>
           <div class="value">${escapeHtml(turno.nombre)}</div>
           ${turno.horario ? `<div class="horario">${escapeHtml(turno.horario)}</div>` : ""}
@@ -835,12 +839,10 @@
             <div class="value">${aula}</div>
           </div>
         </div>
-        <div class="board-meta">
-          <div class="board-edificio">
-            <div class="label">Edificio</div>
-            <div class="value">UADE Labs</div>
-          </div>
-          ${bloqueTurno}
+        ${bloqueTurno}
+        <div class="board-edificio">
+          <div class="label">Edificio</div>
+          <div class="value">UADE Labs</div>
         </div>
       </div>
       <div class="notice">
